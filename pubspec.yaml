@@ -20,6 +20,9 @@ dependencies:
   # 상태관리
   flutter_riverpod: ^2.6.1
 
+  # svg 이미지
+  flutter_svg: 2.0.17
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

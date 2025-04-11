@@ -4,13 +4,13 @@ import 'package:app_heart_link/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-abstract class BaseView<BS extends BaseState, VM extends BaseViewModel>
+abstract class BaseView<BS extends BaseState<BS>, VM extends BaseViewModel<BS>>
     extends ConsumerStatefulWidget {
   const BaseView({super.key});
 }
 
 abstract class BaseViewState<
-  BS extends BaseState,
+  BS extends BaseState<BS>,
   VM extends BaseViewModel<BS>,
   BV extends BaseView<BS, VM>
 >
@@ -32,13 +32,19 @@ abstract class BaseViewState<
 
   AutoDisposeStateNotifierProvider<VM, BS> registerViewModel();
 
-  PreferredSizeWidget? appBar(BuildContext context);
+  PreferredSizeWidget? appBar(BuildContext context, BS viewState, VM viewModel);
 
-  Widget body(BuildContext context);
+  Widget body(BuildContext context, BS viewState, VM viewModel);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: appBar(context), body: body(context),);
+    final viewState = ref.watch(viewModelProvider);
+    final viewModel = ref.read(viewModelProvider.notifier);
+
+    return Scaffold(
+      appBar: appBar(context, viewState, viewModel),
+      body: SafeArea(child: body(context, viewState, viewModel)),
+    );
   }
 
   Widget buildLoadingWidget() {

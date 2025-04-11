@@ -14,14 +14,21 @@ class SplashView extends BaseView<SplashState, SplashViewModel> {
 
 class _SplashViewState extends BaseViewState<SplashState, SplashViewModel, SplashView> {
   @override
-  PreferredSizeWidget? appBar(BuildContext context) => null;
-
-  @override
   AutoDisposeStateNotifierProvider<SplashViewModel, SplashState> registerViewModel() =>
       AppProviders.splashViewModelProvider;
 
   @override
-  Widget body(BuildContext context) {
-    return Text("ttttt", style: TextStyle(color: Colors.black),);
+  PreferredSizeWidget? appBar(
+    BuildContext context,
+    SplashState viewState,
+    SplashViewModel viewModel,
+  ) => null;
+
+  @override
+  Widget body(BuildContext context, SplashState viewState, SplashViewModel viewModel) {
+    return Center(child: GestureDetector(onTap: () {
+      viewModel.plusCountTmp();
+      print("count: ${viewState.count}");
+    }, child: Text("data")));
   }
 }

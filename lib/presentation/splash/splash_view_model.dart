@@ -8,4 +8,9 @@ final splashViewModelProvider = StateNotifierProvider.autoDispose<SplashViewMode
 
 class SplashViewModel extends BaseViewModel<SplashState> {
   SplashViewModel() : super(SplashState());
+
+  plusCountTmp() {
+    state = state.copyWith(count: state.count + 1);
+  }
+
 }
